@@ -19,13 +19,33 @@
         "type": "albersUsa"
     },
     
-    "width": 500,
-    "height": 300,
+    "width": 700,
+    "height": 500,
 
-    "mark":{
-        "type": "geoshape",
-        "stroke": "white",
-        "fill": "#69981ddb"
-    }
 
-  }
+    "layer": [
+        {
+            "description": "map base layer here, not sure what goes in this encoding",
+            "mark":{
+                "type": "geoshape",
+                "stroke": "white",
+                "fill": "#69981ddb"
+            },
+            "encoding":{
+                "color": {
+                    "field":"",
+                    "type":"quantitative",
+                    "scale":{
+                        "scheme":"lightyellow"
+                    }
+                }
+            }
+        },
+        {
+            "description": "add label layer here",
+            "mark":"text"
+            
+        }
+
+    ]
+}
