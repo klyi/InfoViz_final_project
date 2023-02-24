@@ -1,0 +1,31 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+   
+    "title": {
+        "text": "Cats & Dogs in the USA",
+        "anchor": "middle",
+        "fontSize":20
+    },
+
+    "data": {
+      "url": "https://raw.githubusercontent.com/deldersveld/topojson/master/countries/united-states/us-albers.json",
+      "format": {
+      "type": "topojson",
+      "feature": "us"
+        }
+    },
+  
+    "projection": {
+        "type": "albersUsa"
+    },
+    
+    "width": 500,
+    "height": 300,
+
+    "mark":{
+        "type": "geoshape",
+        "stroke": "white",
+        "fill": "#69981ddb"
+    }
+      
+  }
