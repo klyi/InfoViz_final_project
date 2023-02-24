@@ -39,7 +39,7 @@
   {"lon":-76.875613, "lat":40.269789, "state":"PA", "city":"Harrisburg"},
   {"lon":-71.422132, "lat":41.82355, "state":"RI", "city":"Providence"},
   {"lon":-81.035, "lat":34, "state":"SC", "city":"Columbia"},
-  {"lon":-100.336378, "lat":44.367966, "state":"SD", "city":"Pierre"},
+  {"lon":-100.336378, "lat":44.5, "state":"SD", "city":"Pierre"},
   {"lon":-86.784, "lat":36.165, "state":"TN", "city":"Nashville"},
   {"lon":-100, "lat":31, "state":"TX", "city":"Austin"},
   {"lon":-111.892622, "lat":40.7547, "state":"UT", "city":"Salt Lake City"},
