@@ -19,21 +19,54 @@
     "projection": {
         "type": "albersUsa"
     },
-    
-    "mark":{
-        "type": "geoshape",
-        "stroke": "white",
-        "fill": "#69981ddb"
-    },
-    "encoding":{
-        "color": {
-            "field":"",
-            "type":"quantitative",
-            "scale":{
-                "scheme":"lightyellow"
+    "layer": [{
+
+        "description": "map base layer here, not sure what goes in this encoding",
+        "mark":{
+            "type": "geoshape",
+            "stroke": "white",
+            "fill": "#69981ddb"
+        },
+        "encoding":{
+            "color": {
+                "field":"",
+                "type":"quantitative",
+                "scale":{
+                    "scheme":"lightyellow"
+                }
             }
         }
-    },
+        },
+        {
+            "description": "add label layer here",
+            "data": {
+                "url": "",
+                "format": {
+                    "type":"csv"
+                }
+            },
+            "mark": {
+                "type": "text",
+                "dx":12,
+                "fontStyle":"bold"
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "",
+                    "type": "quantitative"
+                },
+                "text":{
+                    "field": "",
+                    "type": "nominal"
+                },
+                "size": {"value": 12}
+            }
+        }
+    ],
 
     "transform": [{
         "lookup": "",
