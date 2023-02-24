@@ -14,7 +14,6 @@
       "feature": "us"
         }
     },
-  
     "projection": {
         "type": "albersUsa"
     },
@@ -26,6 +25,17 @@
         "type": "geoshape",
         "stroke": "white",
         "fill": "#69981ddb"
-    }
+    },
+
+    "transform": [{
+        "lookup": "id",
+        "from":{
+            "data": {
+                "url":""
+            },
+            "key": "",
+            "fields": [""]
+        }
+    }]
       
   }
