@@ -40,17 +40,16 @@
             "mark":{
                 "type": "geoshape",
                 "stroke": "white"
-      
             },
             "encoding": {
-      "color": {
-        "field": "deaths",
-        "type": "quantitative",
-        "scale": {"scheme": "oranges", "domain":[0, 5000]}
-       
-       
-      
-      }
+                "color": {
+                    "field": "deaths",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "oranges", 
+                        "domain":[0, 5000]
+                    }
+                }
             }
         },
         {
