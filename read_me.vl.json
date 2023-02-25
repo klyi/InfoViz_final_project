@@ -1,51 +1,64 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-   
+  
     "title": {
-        "text": "Cats & Dogs in the USA",
+        "text": "Malaria Deaths Per 100,000",
         "anchor": "middle",
         "fontSize":20
     },
-
+  
     "data": {
-      "url": "https://raw.githubusercontent.com/deldersveld/topojson/master/countries/united-states/us-albers.json",
+      "url": "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries-sans-antarctica.json",
       "format": {
       "type": "topojson",
-      "feature": "us"
+      "feature": "countries1"
         }
     },
   
     "projection": {
-        "type": "albersUsa"
+        "type": "mercator"
     },
-    
+  
     "width": 700,
     "height": 500,
-
-
+  
+    "transform": [{
+      "lookup": "id",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths_age.csv"
+        },
+        "key": "code",
+        "fields": ["deaths"]
+      }
+    }],
+  
+  
     "layer": [
         {
             "description": "map base layer here, not sure what goes in this encoding",
             "mark":{
                 "type": "geoshape",
-                "stroke": "white",
-                "fill": "#69981ddb"
+                "stroke": "white"
+      
             },
-            "encoding":{
-                "color": {
-                    "field":"",
-                    "type":"quantitative",
-                    "scale":{
-                        "scheme":"lightyellow"
-                    }
-                }
+            "encoding": {
+      "color": {
+        "field": "deaths",
+        "type": "quantitative",
+        "scale": {"scheme": "oranges", "domain":[0, 5000]}
+       
+       
+      
+      }
             }
         },
         {
             "description": "add label layer here",
             "mark":"text"
-            
+  
         }
-
+  
     ]
-}
+  }
+   
