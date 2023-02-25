@@ -33,7 +33,6 @@
       }
     }],
   
-  
     "layer": [
         {
             "description": "map base layer here, not sure what goes in this encoding",
@@ -47,7 +46,7 @@
                     "type": "quantitative",
                     "scale": {
                         "scheme": "oranges", 
-                        "domain":[0, 5000]
+                        "domain":[0, 3000]
                     }
                 }
             }
