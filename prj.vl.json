@@ -16,25 +16,25 @@
     },
   
   
-    "hconcat": [{
         "projection": {
             "type": "mercator"
         },
-    
+  
         "width": 700,
         "height": 500,
-    
+  
         "transform": [{
             "lookup": "id",
             "from": {
                 "data": {
-                "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths_age.csv"
+                "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/global_mortality.csv"
                 },
-                "key": "code",
-                "fields": ["deaths"]
+                "key": "country_code",
+                "fields": ["Cardiovascular diseases (%)", 
+                "Cancers (%)", "Respiratory diseases (%)", "Diabetes (%)","Road accidents (%)", "HIV/AIDS (%)", "Homicide (%)"]
             }
         }],
-    
+  
         "layer": [{
             "description": "map base layer here, not sure what goes in this encoding",
             "mark":{
@@ -43,31 +43,15 @@
             },
             "encoding": {
                 "color": {
-                    "field": "deaths",
+                    "field": "HIV/AIDS (%)",
                     "type": "quantitative",
                     "scale": {
-                        "scheme": "oranges", 
-                        "domain":[0, 3000]
+                        "scheme": "oranges",
+                        "domain":[0, 60]
+      
                     }
                 }
             }
-        },
-        {
-            "description": "add label layer here",
-            "mark":"text"
-        }]
-    },{
-        "height": 350,
-        "width": 150,
-
-        "mark": "bar",
-        "encoding":{
-            "x": {
-                "field"
-            }
-
         }
-
-
-    }]
-}
+      ]
+  }
