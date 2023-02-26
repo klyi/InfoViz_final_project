@@ -15,26 +15,27 @@
         }
     },
   
-    "projection": {
-        "type": "mercator"
-    },
   
-    "width": 700,
-    "height": 500,
-  
-    "transform": [{
-      "lookup": "id",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths_age.csv"
+    "hconcat": [{
+        "projection": {
+            "type": "mercator"
         },
-        "key": "code",
-        "fields": ["deaths"]
-      }
-    }],
-  
-    "layer": [
-        {
+    
+        "width": 700,
+        "height": 500,
+    
+        "transform": [{
+            "lookup": "id",
+            "from": {
+                "data": {
+                "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths_age.csv"
+                },
+                "key": "code",
+                "fields": ["deaths"]
+            }
+        }],
+    
+        "layer": [{
             "description": "map base layer here, not sure what goes in this encoding",
             "mark":{
                 "type": "geoshape",
@@ -54,9 +55,19 @@
         {
             "description": "add label layer here",
             "mark":"text"
-  
+        }]
+    },{
+        "height": 350,
+        "width": 150,
+
+        "mark": "bar",
+        "encoding":{
+            "x": {
+                "field"
+            }
+
         }
-  
-    ]
-  }
-   
+
+
+    }]
+}
