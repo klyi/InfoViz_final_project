@@ -1,0 +1,44 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/global_mortality.csv",
+      "format": {
+        "type": "csv"
+      }
+    },
+    "width": 750,
+    "height": 50,
+   "layer":[{
+      "params": [{"name": "year_selection", "select": {"type": "point", "fields": ["year"]}}],
+      "mark": "rect",
+      "encoding": {
+          "x": {
+          "field": "year",
+          "type": "nominal",
+          "title": null,
+          "sort": {
+              "op": "count",
+              "field": "year",
+              "order": "descending"
+          },
+          "axis":{"gridOpacity":0.5, "labelAngle":360, "title":"Year"}
+          },
+          "y":{
+            "field":"Road accidents (%)",
+            "type": "quantitative",
+            "title": "Road accidents (%)"
+          },
+          "color": {
+            "condition": {
+              "param": "year_selection",
+              "field": "year",
+              "type":"nominal",
+              "scale": {"scheme":"oranges"},
+              "legend":null
+              },
+            "value": "grey"    
+          }
+        }
+    }]
+}
+  

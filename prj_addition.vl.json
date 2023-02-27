@@ -1,0 +1,94 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": "Deaths",
+      "anchor": "middle",
+      "fontSize": 20
+    },
+    "data": {
+      "url": "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries-sans-antarctica.json",
+      "format": {
+        "type": "topojson",
+        "feature": "countries1"
+      }
+    },
+    "vconcat": [
+      {
+          "projection": {
+              "type": "mercator"
+          },
+          "width": 700,
+          "height": 500,
+          "transform": [
+              {
+                  "lookup": "id",
+                  "from": {
+                      "data": {
+                          "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/global_mortality.csv",
+                          "format": {"type": "csv"}
+                      },
+                      "key": "country_code",
+                      "fields": ["Road_accidents_(%)"]
+                  }
+              }
+          ],
+          "params": [{
+            "name":"geo_fill",
+            "select": {"type":"point",
+              "fields": ["Road_accidents_(%)"]}
+          }],
+          "mark": {
+              "type": "geoshape", 
+              "stroke": "black"
+          },
+          "encoding": {
+              "color": {
+                  "condition": {
+                      "param": "geo_fill",
+                      "field": "Road_accidents_(%)",
+                      "type": "quantitative"
+                  }
+              }
+          }
+      },
+  
+  
+      {
+          "data": {
+              "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/global_mortality.csv",
+              "format": {
+                "type": "csv"
+              }
+          },
+          "width": 250,
+          "height": 300,
+          "layer":[{
+              "mark": "bar",
+              "transform":[{"filter":{"param":"geo_fill"}}],
+              "encoding": {
+                  "x": {
+                  "field": "year",
+                  "type": "nominal",
+                  "title": null,
+                  "sort": {
+                      "op": "count",
+                      "field": "year",
+                      "order": "descending"
+                  },
+                  "axis":{"gridOpacity":0.5, "labelAngle":360}
+                  },
+                  "color": {
+                  "condition": {
+                      "param": "geo_fill",
+                      "field": "year",
+                      "type":"nominal",
+                      "scale": {"scheme":"greys"},
+                      "legend":null
+                      }
+                  }
+              }
+          }]
+      }
+    ]
+  }
+  

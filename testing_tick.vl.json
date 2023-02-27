@@ -1,0 +1,46 @@
+{
+    
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+        "text": "Deaths",
+        "anchor": "middle",
+        "fontSize": 20
+    },
+
+    "data": {
+      "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/global_mortality.csv",
+      "format": {"type": "csv"}
+    },
+    "params": [
+      {
+          "name": "sliding_scale",
+          "select": {
+              "type": "interval",
+              "clear": "dblclick"
+          }
+      }
+    ],
+    "mark": "tick",
+    "width": 750,
+    "height": 35,
+    "encoding": {
+      "x": {
+        "field": "year",
+        "type": "ordinal",
+        "sort": {"field": "year", "order": "ascending"},
+        "axis": {"title": "Year"}
+      },
+      "color": {
+        "condition": {
+          "param": "sliding_scale",
+          "field": "year",
+          "type": "ordinal"
+        },
+        "value": "grey"
+      },
+      "opacity": {
+        "condition": {"param": "sliding_scale", "value": 0.7},
+        "value": 0.3
+      }        
+    }
+  }
