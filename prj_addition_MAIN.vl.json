@@ -12,15 +12,17 @@
         "feature": "countries1"
       }
     },
+
     "vconcat": [
       {
+        
           "projection": {
               "type": "mercator"
           },
           "width": 700,
           "height": 500,
           "transform": [
-              {
+                {
                   "lookup": "id",
                   "from": {
                       "data": {
@@ -31,13 +33,13 @@
                       "fields": ["Road_accidents"]
                   }
               },
-              {"filter":"year_selection"}
+              {"filter": {"param": "year_selection"}}
           ],
           "params": [{
             "name":"geo_fill",
             "select": {"type":"point",
               "fields": ["Road_accidents"]}
-          }],
+            }],
           "mark": {
               "type": "geoshape", 
               "stroke": "black"
@@ -63,7 +65,7 @@
         },
         "transform":[{"filter":"geo_fill"}],
         "width": 750,
-        "height": 50,
+        "height": 150,
         "layer":[{
         "params": [{"name": "year_selection", "select": {"type": "point", "fields": ["year"]}}],
         "mark": "rect",
@@ -82,15 +84,16 @@
             "y":{
                 "field":"Road_accidents",
                 "type": "quantitative",
-                "title": "Road_accidents"
+                "title": "Road accidents (%)"
+            
             },
             "color": {
                 "condition": {
-                "param": "year_selection",
-                "field": "year",
-                "type":"nominal",
-                "scale": {"scheme":"blues"},
-                "legend":null
+                    "param": "year_selection",
+                    "field": "year",
+                    "type":"nominal",
+                    "scale": {"scheme":"blues"},
+                    "legend":null
                 },
                 "value": "grey"    
             }
