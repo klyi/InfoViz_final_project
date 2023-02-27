@@ -24,9 +24,9 @@
           "axis":{"gridOpacity":0.5, "labelAngle":360, "title":"Year"}
           },
           "y":{
-            "field":"Road accidents (%)",
+            "field":"Road_accidents",
             "type": "quantitative",
-            "title": "Road accidents (%)"
+            "title": "Road_accidents"
           },
           "color": {
             "condition": {

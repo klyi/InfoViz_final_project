@@ -1,0 +1,102 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": "Deaths",
+      "anchor": "middle",
+      "fontSize": 20
+    },
+    "data": {
+      "url": "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries-sans-antarctica.json",
+      "format": {
+        "type": "topojson",
+        "feature": "countries1"
+      }
+    },
+    "vconcat": [
+      {
+          "projection": {
+              "type": "mercator"
+          },
+          "width": 700,
+          "height": 500,
+          "transform": [
+              {
+                  "lookup": "id",
+                  "from": {
+                      "data": {
+                          "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/global_mortality.csv",
+                          "format": {"type": "csv"}
+                      },
+                      "key": "country_code",
+                      "fields": ["Road_accidents"]
+                  }
+              },
+              {"filter":"year_selection"}
+          ],
+          "params": [{
+            "name":"geo_fill",
+            "select": {"type":"point",
+              "fields": ["Road_accidents"]}
+          }],
+          "mark": {
+              "type": "geoshape", 
+              "stroke": "black"
+          },
+          "encoding": {
+              "color": {
+                  "condition": {
+                      "param": "geo_fill",
+                      "field": "Road_accidents",
+                      "type": "quantitative"
+                  }
+              }
+          }
+      },
+  
+  
+      {
+        "data": {
+            "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/global_mortality.csv",
+            "format": {
+                "type": "csv"
+            }
+        },
+        "transform":[{"filter":"geo_fill"}],
+        "width": 750,
+        "height": 50,
+        "layer":[{
+        "params": [{"name": "year_selection", "select": {"type": "point", "fields": ["year"]}}],
+        "mark": "rect",
+        "encoding": {
+            "x": {
+            "field": "year",
+            "type": "nominal",
+            "title": null,
+            "sort": {
+                "op": "count",
+                "field": "year",
+                "order": "descending"
+            },
+            "axis":{"gridOpacity":0.5, "labelAngle":360, "title":"Year"}
+            },
+            "y":{
+                "field":"Road_accidents",
+                "type": "quantitative",
+                "title": "Road_accidents"
+            },
+            "color": {
+                "condition": {
+                "param": "year_selection",
+                "field": "year",
+                "type":"nominal",
+                "scale": {"scheme":"blues"},
+                "legend":null
+                },
+                "value": "grey"    
+            }
+            }
+        }]
+      }
+    ]
+  }
+  

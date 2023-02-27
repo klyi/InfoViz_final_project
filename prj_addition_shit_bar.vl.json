@@ -28,14 +28,14 @@
                           "format": {"type": "csv"}
                       },
                       "key": "country_code",
-                      "fields": ["Road_accidents_(%)"]
+                      "fields": ["Road_accidents"]
                   }
               }
           ],
           "params": [{
             "name":"geo_fill",
             "select": {"type":"point",
-              "fields": ["Road_accidents_(%)"]}
+              "fields": ["Road_accidents"]}
           }],
           "mark": {
               "type": "geoshape", 
@@ -45,7 +45,7 @@
               "color": {
                   "condition": {
                       "param": "geo_fill",
-                      "field": "Road_accidents_(%)",
+                      "field": "Road_accidents",
                       "type": "quantitative"
                   }
               }
@@ -61,26 +61,29 @@
               }
           },
           "width": 250,
-          "height": 300,
+          "height": 250,
           "layer":[{
               "mark": "bar",
-              "transform":[{"filter":{"param":"geo_fill"}}],
+              "transform":[
+                {"filter":"geo_fill"},
+              {"filter":"datum.Road_accidents > 10"}],
               "encoding": {
-                  "x": {
-                  "field": "year",
+                  "y": {
+                  "field": "country",
                   "type": "nominal",
                   "title": null,
-                  "sort": {
-                      "op": "count",
-                      "field": "year",
-                      "order": "descending"
+                  "axis":{"gridOpacity":0.5, "labelAngle":360},
+                  "sort":"-x"
                   },
-                  "axis":{"gridOpacity":0.5, "labelAngle":360}
+                  "x": {
+                    "field": "Road_accidents",
+                    "type": "quantitative",
+                    "title": "Road accidents (%)"
                   },
                   "color": {
                   "condition": {
                       "param": "geo_fill",
-                      "field": "year",
+                      "field": "country",
                       "type":"nominal",
                       "scale": {"scheme":"greys"},
                       "legend":null
