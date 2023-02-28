@@ -30,7 +30,7 @@
                           "format": {"type": "csv"}
                       },
                       "key": "country_code",
-                      "fields": ["Road_accidents"]
+                      "fields": ["Road_accidents","year"]
                   }
               },
               {"filter": {"param": "year_selection"}}
@@ -85,7 +85,6 @@
                 "field":"Road_accidents",
                 "type": "quantitative",
                 "title": "Road accidents (%)"
-            
             },
             "color": {
                 "condition": {
