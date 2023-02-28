@@ -41,7 +41,7 @@
         },
         {
             "name":"legend_select",
-            "select": {"type":"point", "fields":["genre"], "clear": "dblclick"},
+            "select": {"type":"point", "fields":["genre"]},
             "bind":"legend"
         }],
 
@@ -56,7 +56,7 @@
         ],
 
         "height": 500,
-        "width": 500,
+        "width": 550,
         "encoding": {
             
             "x": {
@@ -82,23 +82,12 @@
                     }
                 },
                 "value": "grey"
-
             },
             "tooltip": {"field": "movie", "type": "nominal"},
             "opacity":{
                 "condition": {"param":"legend_select", "value":0.75 },
                 "value": 0.1
-            },
-            "size": {
-                "field": "mpaa_rating",
-                "type": "nominal",
-                "legend": null,
-                "scale": {
-                    "range": [85, 15],
-                    "domain": ["G", "PG", "PG-13", "R"]
-                    
-                }
-            }    
+            }   
         }
     },
     {
@@ -119,7 +108,7 @@
 
             
         "height": 500,
-        "width": 500,
+        "width": 550,
         "transform": [
             {"filter": {
                 "and": [
@@ -159,17 +148,15 @@
             },
             "tooltip": {"field": "movie", "type": "nominal"},
             "opacity":{
-                "condition": {"param":"legend_select2", "value":0.75 },
+                "condition": {"param": "legend_select2", "value":0.75 },
                 "value": 0.1
             },
             "size": {
                 "field": "mpaa_rating",
                 "type": "nominal",
-                "legend": {"orient": "right"},
                 "scale": {
                     "range": [85, 15],
-                    "domain": ["G", "PG", "PG-13", "R"]
-                    
+                    "domain": ["G", "PG", "PG-13", "R"]    
                 }
             }        
         }
