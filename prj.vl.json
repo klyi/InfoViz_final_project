@@ -1,0 +1,178 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+
+    "data": {
+        "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/movies_data.csv",
+        "format": {"type": "csv"}
+    },
+
+    "transform": [{
+            "filter": "datum.worldwide_gross < 1000000000"
+        },
+        {
+            "filter": "datum.worldwide_gross < 1000000000"
+        }
+
+    ],
+
+    "title": {
+        "text": "Movie Explorer",
+        "anchor": "middle",
+        "fontSize":20,
+        "fontWeight":"bolder"
+    },
+
+    "config": {
+        "legend": {
+            "orient": "right"
+        },
+        "axis": {"titleFontSize": 12, "gridOpacity": 0.2}
+    },
+
+
+    "hconcat":[
+        {
+        "mark": {
+            "type": "circle", "opacity": 0.6
+        },
+        "params": [{
+            "name": "brush",
+            "select": {"type": "interval", "clear": "dblclick"}
+        },
+        {
+            "name":"legend_select",
+            "select": {"type":"point", "fields":["genre"], "clear": "dblclick"},
+            "bind":"legend"
+        }],
+
+        "transform": [
+            {"filter": {
+                "and": [
+                  {"selection": "legend_select2"},
+                  {"selection": "brush2"}
+                ]
+              }
+            }
+        ],
+
+        "height": 500,
+        "width": 500,
+        "encoding": {
+            
+            "x": {
+                "field": "production_budget",
+                "type": "quantitative",
+                "axis": {"title": "Log-Scaled Production Budget ($)"},
+                "scale": {"domain":[220000,200000000], "type": "log"}
+            },
+            "y": {
+                "field": "worldwide_gross",
+                "type": "quantitative",
+                "axis": {"title": "Worldwide Gross"},
+                "scale": {"domain":[0,1000000000]}
+            },
+            "color": {
+                "condition": {
+                    "param": "brush",
+                    "field": "genre",
+                    "type": "nominal",
+                    "title": "Genre",
+                    "scale": {
+                        "domain": ["Action", "Adventure", "Comedy", "Drama", "Horror"]
+                    }
+                },
+                "value": "grey"
+
+            },
+            "tooltip": {"field": "movie", "type": "nominal"},
+            "opacity":{
+                "condition": {"param":"legend_select", "value":0.75 },
+                "value": 0.1
+            },
+            "size": {
+                "field": "mpaa_rating",
+                "type": "nominal",
+                "legend": null,
+                "scale": {
+                    "range": [85, 15],
+                    "domain": ["G", "PG", "PG-13", "R"]
+                    
+                }
+            }    
+        }
+    },
+    {
+        "mark": {
+            "type": "circle", "opacity": 0.6},
+            
+        "params": [
+            {
+                "name": "brush2",
+                "select": {"type": "interval", "clear": "dblclick"}
+            },
+            {
+                "name":"legend_select2",
+                "select": {"type":"point", "fields":["mpaa_rating"]},
+                "bind":"legend"
+            }
+        ],
+
+            
+        "height": 500,
+        "width": 500,
+        "transform": [
+            {"filter": {
+                "and": [
+                  {"selection": "legend_select"},
+                  {"selection": "brush"}
+                ]
+              }
+            }
+        ],
+
+        "encoding": {
+            
+            "x": {
+                "field": "production_budget",
+                "type": "quantitative",
+                "axis": {"title": "Log-Scaled Production Budget ($)"},
+                "scale": {"domain":[220000,200000000], "type": "log"}
+                
+
+            },
+            "y": {
+                "field": "domestic_gross",
+                "type": "quantitative",
+                "axis": {"title": "Domestic Gross"},
+                "scale": {"domain":[0,500000000]}
+                
+            },
+            "color": {
+                "condition": {
+                    "param": "brush2",
+                    "field": "genre",
+                    "type": "nominal",
+                    "title": "Genre"
+                },
+                "value": "grey"
+
+            },
+            "tooltip": {"field": "movie", "type": "nominal"},
+            "opacity":{
+                "condition": {"param":"legend_select2", "value":0.75 },
+                "value": 0.1
+            },
+            "size": {
+                "field": "mpaa_rating",
+                "type": "nominal",
+                "legend": {"orient": "right"},
+                "scale": {
+                    "range": [85, 15],
+                    "domain": ["G", "PG", "PG-13", "R"]
+                    
+                }
+            }        
+        }
+    }
+    ]
+}
