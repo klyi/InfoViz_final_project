@@ -23,10 +23,7 @@
                 "sort": {"field": "year", "order": "ascending"},
                 "axis":{
                     "gridOpacity":0.4,
-                    "labelAngle": 0,
-                    "values": ["1936-02-05","1940-02-09", "1956-02-16","1960-10-07", "1970-01-01" ,"1980-01-01", "1990-01-19", "2000-01-12", "2010-01-15", "2019-03-15"],
-                    "labelExpr": "year(timeParse(datum.release_date, '%Y-%m/%d'))"
-
+                    "labelAngle": 0                    
                 }
             },
             "color": {

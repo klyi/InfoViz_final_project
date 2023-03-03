@@ -5,8 +5,16 @@
       "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/movies_data.csv",
       "format": {"type": "csv"}
     },
+
+    "title": {
+        "text": "Movie Explorer",
+        "anchor": "middle",
+        "fontSize":20,
+        "fontWeight":"bolder"
+    },
   
-  
+    "vconcat": [{
+
     "repeat": {
       "column": [
         "worldwide_gross",
@@ -15,25 +23,17 @@
    
     },
   
-  
-  
-    "title": {
-        "text": "Movie Explorer",
-        "anchor": "middle",
-        "fontSize":20,
-        "fontWeight":"bolder"
-    },
-  
     "config": {
     "legend": {
       "orient": "right"
     },
     "axis": {"titleFontSize": 12, "gridOpacity": 0.2}
-  },
+    },
   
     "spec":{
     "mark": {
-        "type": "circle", "opacity": 0.6},
+        "type": "circle", "opacity": 0.6
+    },
     "params": [{
             "name": "brush",
             "select": {"type": "interval", "clear": "dblclick"}
@@ -47,23 +47,19 @@
               "name":"legend_select2",
               "select": {"type":"point", "fields":["mpaa_rating"]},
               "bind":"legend"
-          }],
+            }],
   
-          "transform": [
-              {
-                "filter": {
-                  "and": [
-                    {"selection": "legend_select2"}
-                    
-                    ]
-                }
-              },
-              {
-                "filter": "datum.worldwide_gross < 1000000000"
-              },
-              {
-                "filter": "datum.domestic_gross < 1000000000"
-              }
+            "transform": [
+                {
+                    "filter": {
+                    "and": [
+                        {"selection": "legend_select2"}
+                        ]
+                    }
+                },
+                {"filter": "datum.worldwide_gross < 1000000000"},
+                {"filter": "datum.domestic_gross < 1000000000"},
+                {"filter": {"and": [{"selection": "strip_brush"}]}}
             ],
   
       
@@ -105,24 +101,60 @@
         },
         "tooltip": {"field": "movie", "type": "nominal"},
         "opacity":{
-            "condition": {"param":"legend_select", "value":0.75 },
-            "value": 0.1
+                "condition": {"param":"legend_select", "value":0.75 },
+                "value": 0.1
         },
   
         "size": {
-          "field": "mpaa_rating",
-          "type": "nominal",
-          "legend": {"orient": "right", "offset": 10},
-          "scale": {
-            "range": [85, 15],
-            "domain": ["G", "PG", "PG-13", "R"]
-            
-          }
+            "field": "mpaa_rating",
+            "type": "nominal",
+            "legend": {"orient": "right", "offset": 10},
+            "scale": {
+                "range": [85, 15],
+                "domain": ["G", "PG", "PG-13", "R"]
+                
+            } 
         }
    
         
     }
     }
+    },
+    {
+        "width": 1000,
+        "height": 50,
+        "transform": [
+            {"filter": {"param": "brush"}},
+            {"filter": {"param": "legend_select"}},
+            {"filter": {"param": "legend_select2"}}
+        ],
+        "params": [{
+            "name":"strip_brush",
+            "select":{"type": "interval"}
+        }],
+        "mark": "tick",
+        "encoding": {
+            "x": {
+                "field": "release_date",
+                "type": "temporal",
+                "title":"Release Date",
+                "sort": {"field": "year", "order": "ascending"},
+                "axis":{
+                    "gridOpacity":0.4,
+                    "labelAngle": 0                    
+                }
+            },
+            "color": {
+                "condition":{"param": "strip_brush",
+                    "field": "genre",
+                    "type": "nominal"
+                },
+                "value":"grey"
+            }
+        }
+
+
+    }]
   
   
   }
