@@ -141,8 +141,10 @@
                 "sort": {"field": "year", "order": "ascending"},
                 "axis":{
                     "gridOpacity":0.4,
-                    "labelAngle": 0                    
-                }
+                    "labelAngle": 0
+                },
+                "scale": {"domain": ["1935-01-01","2020-12-31"]                    
+            }
             },
             "color": {
                 "condition":{"param": "strip_brush",
