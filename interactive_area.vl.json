@@ -1,0 +1,51 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url":  "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/movies_data.csv",
+        "format": {
+            "type": "csv"
+          }
+    },
+    "height":500,
+    "width":700,    
+    "layer": [{
+        "mark": "line",
+        "encoding": {
+            "x": {
+                "field": "release_date",
+                "type": "temporal",
+                "title":"Release Date",
+                "sort": {"field": "year", "order": "ascending"},
+                "axis":{
+                    "gridOpacity":0.4,
+                    "labelAngle": 0
+                }
+            },
+            "y": {
+                "field": "worldwide_gross",
+                "type": "quantitative",
+                "sort": {"field": "year", "order": "ascending"},
+                "axis": {"title": "Worldwide Gross ($)"}
+
+            },
+            "tooltip": [
+                {"field": "movie", "type": "nominal"},
+                {"field": "production_budget", "type": "quantitative"},
+                {"field": "worldwide_gross", "type": "quantitative"}
+            ]  
+              
+        }
+    }, {
+        "mark": "rule",
+        "encoding": {
+            "y": {
+                "aggregate": "mean",
+                "field": "worldwide_gross",
+                "type":"quantitative"
+            },
+            "size": {"value": 3}
+
+        }
+    }]
+    
+}

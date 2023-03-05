@@ -14,149 +14,237 @@
     },
   
     "vconcat": [{
+        "vconcat": [{
 
-    "repeat": {
-      "column": [
-        "worldwide_gross",
-        "domestic_gross"
-      ]
-   
-    },
-  
-    "config": {
-    "legend": {
-      "orient": "right"
-    },
-    "axis": {"titleFontSize": 12, "gridOpacity": 0.2}
-    },
-  
-    "spec":{
-    "mark": {
-        "type": "circle", "opacity": 0.6
-    },
-    "params": [{
-            "name": "brush",
-            "select": {"type": "interval", "clear": "dblclick"}
+            "repeat": {
+                "column": [
+                    "worldwide_gross",
+                    "domestic_gross"
+                ]
+        
             },
-            {
-                "name":"legend_select",
-                "select": {"type":"point", "fields":["genre"]},
-                "bind":"legend"
+        
+            "config": {
+                "legend": {
+                "orient": "right"
+                },
+                "axis": {"titleFontSize": 12, "gridOpacity": 0.2}
             },
-            {
-              "name":"legend_select2",
-              "select": {"type":"point", "fields":["mpaa_rating"]},
-              "bind":"legend"
+        
+            "spec":{
+            "mark": {
+                "type": "circle", "opacity": 0.6
+            },
+            "params": [{
+                    "name": "brush",
+                    "select": {"type": "interval", "clear": "dblclick"}
+                    },
+                    {
+                        "name":"legend_select",
+                        "select": {"type":"point", "fields":["genre"]},
+                        "bind":"legend"
+                    },
+                    {
+                    "name":"legend_select2",
+                    "select": {"type":"point", "fields":["mpaa_rating"]},
+                    "bind":"legend"
+                    }],
+        
+                    "transform": [
+                        {
+                            "filter": {
+                            "and": [
+                                {"selection": "distributor_selection"},
+                                {"selection": "strip_brush"},
+                                {"selection": "mpaa_selection"}
+                            
+                                ]
+                            }
+                        },
+                        {"filter": "datum.worldwide_gross < 1000000000"},
+                        {"filter": "datum.domestic_gross < 1000000000"}
+                    ],
+        
+            
+            "height": 500,
+            "width": 500,
+            "encoding": {
+            
+                "x": {
+                    "field": "production_budget",
+                    "type": "quantitative",
+                    "axis": {"title": "Log-Scaled Production Budget ($)"},
+                    "scale": {"domain":[220000,200000000], "type": "log"}
+                    
+        
+                },
+                "y": {
+                    "field": {"repeat": "column"},
+                    "type": "quantitative",
+                    
+                    
+                    "scale": {"domain":[0,1000000000]}
+                    
+                },
+                "color": {
+                    "condition": {
+                        "param": "brush",
+                        "field": "genre",
+                        "type": "nominal",
+                        "title": "Genre",
+                    
+                    "scale":{"domain":["Action", "Adventure", "Comedy", "Drama", "Horror"],
+                    "range":["#D55E00", "#CC79A7", "#0072B2", "#F0E442", "#009E73"]}
+                    
+                    },
+                
+                    
+                    "value": "grey"
+            
+                },
+                "tooltip": {"field": "movie", "type": "nominal"},
+                "opacity":{
+                        "condition": {"param":"legend_select", "value":0.75 },
+                        "value": 0.1
+                }
+                
+            }
+            }
+        },
+        {
+            "width": 1110,
+            "height": 50,
+            "transform": [
+                {"filter": {"param": "brush"}},
+                {"filter": {"param": "legend_select2"}},
+                {"filter": {"param": "distributor_selection"}},
+                {"selection": "mpaa_selection"}
+
+            ],
+            "params": [{
+                "name":"strip_brush",
+                "select":{"type": "interval"}
             }],
-  
+            "mark": "tick",
+            "encoding": {
+                "x": {
+                    "field": "release_date",
+                    "type": "temporal",
+                    "title":"Release Date",
+                    "sort": {"field": "year", "order": "ascending"},
+                    "axis":{
+                        "gridOpacity":0.4,
+                        "labelAngle": 0
+                    },
+                    "scale": {"domain": ["1935-01-01","2020-12-31"]                    
+                }
+                },
+                "color": {
+                    "condition":{"param": "strip_brush",
+                        "field": "genre",
+                        "type": "nominal"
+                    },
+                    "value":"grey"
+                }
+            }
+
+        }]
+    }, {
+
+        "hconcat": [{
+
+            "title":"Top Five Movie Distributors",
             "transform": [
                 {
                     "filter": {
                     "and": [
-                        {"selection": "legend_select2"}
+                        {"selection": "brush"},
+                        {"selection": "strip_brush"},
+                        {"selection": "legend_select"},
+                        {"selection": "mpaa_selection"}
                         ]
                     }
                 },
-                {"filter": "datum.worldwide_gross < 1000000000"},
-                {"filter": "datum.domestic_gross < 1000000000"},
-                {"filter": {"and": [{"selection": "strip_brush"}]}}
+                {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["distributor"]},
+                {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "count", "order": "descending"}]},
+                {"filter": "datum.rank <= 5"}
             ],
-  
-      
-    "height": 500,
-    "width": 500,
-    "encoding": {
-      
-        "x": {
-            "field": "production_budget",
-            "type": "quantitative",
-            "axis": {"title": "Log-Scaled Production Budget ($)"},
-            "scale": {"domain":[220000,200000000], "type": "log"}
-            
-  
-        },
-        "y": {
-            "field": {"repeat": "column"},
-            "type": "quantitative",
-            
-            
-            "scale": {"domain":[0,1000000000]}
-            
-        },
-        "color": {
-            "condition": {
-                "param": "brush",
-                "field": "genre",
-                "type": "nominal",
-                "title": "Genre",
-               
-              "scale":{"domain":["Action", "Adventure", "Comedy", "Drama", "Horror"],
-             "range":["#D55E00", "#CC79A7", "#0072B2", "#F0E442", "#009E73"]}
-            
-            },
-           
-            
-            "value": "grey"
-    
-        },
-        "tooltip": {"field": "movie", "type": "nominal"},
-        "opacity":{
-                "condition": {"param":"legend_select", "value":0.75 },
-                "value": 0.1
-        },
-  
-        "size": {
-            "field": "mpaa_rating",
-            "type": "nominal",
-            "legend": {"orient": "right", "offset": 10},
-            "scale": {
-                "range": [85, 15],
-                "domain": ["G", "PG", "PG-13", "R"]
-                
-            } 
-        }
-   
         
-    }
-    }
-    },
-    {
-        "width": 1100,
-        "height": 50,
-        "transform": [
-            {"filter": {"param": "brush"}},
-            {"filter": {"param": "legend_select"}},
-            {"filter": {"param": "legend_select2"}}
-        ],
-        "params": [{
-            "name":"strip_brush",
-            "select":{"type": "interval"}
-        }],
-        "mark": "tick",
-        "encoding": {
-            "x": {
-                "field": "release_date",
-                "type": "temporal",
-                "title":"Release Date",
-                "sort": {"field": "year", "order": "ascending"},
-                "axis":{
-                    "gridOpacity":0.4,
-                    "labelAngle": 0
+            "params": [
+                {
+                "name": "distributor_selection",
+                "select": {"type": "point", "fields": ["distributor"]}
+                }
+            ],
+        
+            "height": 500,
+            "width": 500,
+            "mark": "bar",
+        
+            "encoding": {
+                "x": {"field": "count", 
+                    "type": "quantitative", 
+                    "title": "Count"
                 },
-                "scale": {"domain": ["1935-01-01","2020-12-31"]                    
+                "y": {"field": "distributor", "type": "nominal", "sort": "-x", "title": "Distributor"},
+        
+                "color": {
+                    "condition": {"param": "distributor_selection"},
+                    "value": "grey"
+                }
+                
             }
-            },
-            "color": {
-                "condition":{"param": "strip_brush",
-                    "field": "genre",
-                    "type": "nominal"
-                },
-                "value":"grey"
-            }
-        }
+        }, {
 
+            "title":"Count of Movies by MPAA Rating",
+            "transform": [
+                {
+                    "filter": {
+                    "and": [
+                        {"selection": "brush"},
+                        {"selection": "strip_brush"},
+                        {"selection": "legend_select"},
+                        {"selection": "distributor_selection"}
+                        ]
+                    }
+                },
+                {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["mpaa_rating"]},
+                {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "count", "order": "descending"}]},
+                {"filter": "datum.rank <= 5"}
+            ],
+        
+            "params": [
+                {
+                "name": "mpaa_selection",
+                "select": {"type": "point", "fields": ["mpaa_rating"]}
+                }
+            ],
+        
+            "height": 500,
+            "width": 500,
+            "mark": "bar",
+        
+            "encoding": {
+                "x": {"field": "count", 
+                    "type": "quantitative", 
+                    "title": "Count"
+                },
+                "y": {"field": "mpaa_rating", 
+                    "type": "nominal", 
+                    "sort": "-x", 
+                    "title": "MPAA Rating",
+                },
+        
+                "color": {
+                    "condition": {"param": "mpaa_selection", "value": "purple"},
+                    "value": "grey"
+                }
+                
+            }
+
+
+        }]
 
     }]
   
-  
-  }
+}

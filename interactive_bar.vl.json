@@ -1,0 +1,49 @@
+
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  
+    "data": {
+      "url": "https://raw.githubusercontent.com/klyi/InfoViz_final_project/main/movies_data.csv",
+      "format": {"type": "csv"}
+    },
+
+    "title": {
+        "text": "Movie Explorer",
+        "anchor": "middle",
+        "fontSize":20,
+        "fontWeight":"bolder"
+    },
+    "transform": [
+        {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["distributor"]},
+        {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "count", "order": "descending"}]},
+        {"filter": "datum.rank <= 10"}
+    ],
+
+    "params": [
+        {
+        "name": "distributor_selection",
+        "select": {"type": "point", "fields": ["distributor"]}
+        }
+    ],
+
+    "height": 500,
+    "width": 500,
+    "mark": "bar",
+
+    "encoding": {
+        "x": {"field": "count", "type": "quantitative"},
+        "y": {"field": "distributor", "type": "nominal", "sort": "-x"},
+
+        "color": {
+            "condition": {
+                "param": "distributor_selection",   
+                "field":"distributor",     
+                "type": "nominal",
+                "legend": null        
+            },
+            "value": "grey"
+        }
+        
+    }
+
+}
