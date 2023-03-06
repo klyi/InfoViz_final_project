@@ -111,6 +111,7 @@
                     }
                 },{
             
+                    "layer": [{
                     "mark": "rule",
                     "transform": [
                         {
@@ -135,6 +136,27 @@
                         "size": {"value": 3} 
             
                     }
+                    }, {
+                        "mark": {
+                            "type": "text",
+                            "baseline": "bottom",
+                            "dx": -230,
+                            "dy":-2,
+                            "text": "Mean",
+                            "size": 20,
+                            "style": "bolder",
+                            "align": "left"                      
+                        },
+                        "encoding":{
+                            "y": {
+                                "aggregate": "mean",
+                                "field": {"repeat": "column"},
+                                "type":"quantitative"
+                            }
+                        
+                        }
+                    }]    
+
                 }]
             }
             
