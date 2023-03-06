@@ -232,11 +232,15 @@
                 "y": {"field": "mpaa_rating", 
                     "type": "nominal", 
                     "sort": "-x", 
-                    "title": "MPAA Rating"
+                    "title": "MPAA Rating",
+                    "scale": {"domain": ["R", "PG-13", "PG", "G"]}
                 },
         
                 "color": {
-                    "condition": {"param": "mpaa_selection", "value": "purple"},
+                    "condition": {
+                        "param": "mpaa_selection", 
+                        "value": "purple"
+                    },
                     "value": "grey"
                 }
                 
