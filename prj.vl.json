@@ -102,7 +102,11 @@
                             "value": "grey"
                     
                         },
-                        "tooltip": {"field": "movie", "type": "nominal"},
+                        "tooltip": [
+                            {"field": "movie", "type": "nominal"},
+                            {"field": "production_budget", "type": "quantitative"},
+                            {"field": {"repeat": "column"}, "type": "quantitative"}
+                        ],
                         "opacity":{
                                 "condition": {"param":"legend_select", "value":0.75 },
                                 "value": 0.1
