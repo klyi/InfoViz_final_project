@@ -232,7 +232,7 @@
                 "y": {"field": "mpaa_rating", 
                     "type": "nominal", 
                     "sort": "-x", 
-                    "title": "MPAA Rating",
+                    "title": "MPAA Rating"
                 },
         
                 "color": {
