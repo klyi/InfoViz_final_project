@@ -6,6 +6,8 @@
       "format": {"type": "csv"}
     },
 
+    "config": {"axis":{"gridOpacity": 0.2}},
+
     "title": {
         "text": "Movie Explorer",
         "anchor": "middle",
@@ -18,8 +20,8 @@
 
             "repeat": {
                 "column": [
-                    "worldwide_gross",
-                    "domestic_gross"
+                    "Worldwide_Gross_USD",
+                    "Domestic_Gross_USD"
                 ]
         
             },
@@ -28,7 +30,7 @@
                 "legend": {
                 "orient": "right"
                 },
-                "axis": {"titleFontSize": 12, "gridOpacity": 0.2}
+                "axis": {"titleFontSize": 12}
             },
             "spec":{
                 "layer": [{
@@ -61,8 +63,8 @@
                                         ]
                                     }
                                 },
-                                {"filter": "datum.worldwide_gross < 1000000000"},
-                                {"filter": "datum.domestic_gross < 1000000000"}
+                                {"filter": "datum.Worldwide_Gross_USD < 1000000000"},
+                                {"filter": "datum.Domestic_Gross_USD < 1000000000"}
                             ],
                 
                     
@@ -73,7 +75,7 @@
                         "x": {
                             "field": "production_budget",
                             "type": "quantitative",
-                            "axis": {"title": "Log-Scaled Production Budget ($)"},
+                            "axis": {"title": "Log-Scaled Production Budget (USD)"},
                             "scale": {"domain":[220000,200000000], "type": "log"}
                             
                 
@@ -97,13 +99,13 @@
                             "range":["#D55E00", "#CC79A7", "#0072B2", "#F0E442", "#009E73"]}
                             
                             },
-                        
-                            
+                    
                             "value": "grey"
                     
                         },
                         "tooltip": [
                             {"field": "movie", "type": "nominal"},
+                            {"field": "distributor", "type": "nominal"},
                             {"field": "production_budget", "type": "quantitative"},
                             {"field": {"repeat": "column"}, "type": "quantitative"}
                         ],
@@ -123,13 +125,13 @@
                             "and": [
                                 {"selection": "distributor_selection"},
                                 {"selection": "strip_brush"},
-                                {"selection": "mpaa_selection"}
-                            
+                                {"selection": "mpaa_selection"},
+                                {"selection": "brush"}
                                 ]
                             }
                         },
-                        {"filter": "datum.worldwide_gross < 1000000000"},
-                        {"filter": "datum.domestic_gross < 1000000000"}
+                        {"filter": "datum.Worldwide_Gross_USD < 1000000000"},
+                        {"filter": "datum.Domestic_Gross_USD < 1000000000"}
                     ],
                     "encoding": {
                         "y": {
@@ -157,13 +159,14 @@
                                 "field": {"repeat": "column"},
                                 "type":"quantitative"
                             }
-                        
                         }
+                        
                     }]    
 
                 }]
             }
             
+                
         
         },{
             "width": 1110,
@@ -298,6 +301,7 @@
                 }
                 
             }
+
 
         }]
 
